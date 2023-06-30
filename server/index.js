@@ -44,7 +44,23 @@ app.post("/register", (req, res) => {
 
 app.post("/login", (req, res) => {
     const { username, password } = req.body;
-    console.log(req.body);
+    let result = database.filter(
+        (user) => user.username === username && user.password === password
+    );
+    //👇🏻 user doesn't exist
+    if (result.length !== 1) {
+        return res.json({
+            error_message: "Incorrect credentials",
+        });
+    }
+    //👇🏻 user exists
+    res.json({
+        message: "Login successfully",
+        data: {
+            _id: result[0].id,
+            _email: result[0].email,
+        },
+    });
 })
 
 app.listen(port, () => {
