@@ -75,6 +75,7 @@ app.get("/schedules/:id", (req, res) => {
     const { id } = req.params;
     let result = database.filter((db) => db.id === id);
     if (result.length === 1) {
+        console.log('ok aqui')
         return res.json({
             message: "Schedules successfully retrieved!",
             schedules: result[0].schedule,
